@@ -12,7 +12,7 @@
 
 
 
-  <meta name="description" content="ES-5-6-编程笔记"/>
+  <meta name="description" content="ES-5-6-关键点笔记"/>
 
 
 
@@ -33,23 +33,25 @@
 <link rel="canonical" href="http://changwen.me/2018/09/10/learn-es-5-6/"/>
 
 
-<meta name="description" content="这两天阅读了《ECMAScript 6入门》, 对ECMAScript 5/6 的新特性做一个总结。">
+<meta name="description" content="这两天阅读了几分文档:《ECMAScript 6入门》,《最详尽的 JS 原型与原型链终极详解》,对ECMAScript 5/6 的特性做一个总结。">
 <meta name="keywords" content="javascript,前端技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES-5-6-编程笔记">
+<meta property="og:title" content="ES-5-6-关键点笔记">
 <meta property="og:url" content="http://changwen.me/2018/09/10/learn-es-5-6/index.html">
 <meta property="og:site_name" content="字节记忆">
-<meta property="og:description" content="这两天阅读了《ECMAScript 6入门》, 对ECMAScript 5/6 的新特性做一个总结。">
+<meta property="og:description" content="这两天阅读了几分文档:《ECMAScript 6入门》,《最详尽的 JS 原型与原型链终极详解》,对ECMAScript 5/6 的特性做一个总结。">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-09-15T15:20:45.533Z">
+<meta property="og:updated_time" content="2018-09-19T15:58:18.602Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES-5-6-编程笔记">
-<meta name="twitter:description" content="这两天阅读了《ECMAScript 6入门》, 对ECMAScript 5/6 的新特性做一个总结。">
+<meta name="twitter:title" content="ES-5-6-关键点笔记">
+<meta name="twitter:description" content="这两天阅读了几分文档:《ECMAScript 6入门》,《最详尽的 JS 原型与原型链终极详解》,对ECMAScript 5/6 的特性做一个总结。">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
 <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
 
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
@@ -57,7 +59,7 @@
 <script type="text/javascript">
   var themeConfig = {
     fancybox: {
-      enable: false
+      enable: true
     },
   };
 </script>
@@ -66,17 +68,29 @@
 
 
   
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7de9417fa9d5f63543b3c65bd608eba";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
-    <title> ES-5-6-编程笔记 - 字节记忆 </title>
+
+    <title> ES-5-6-关键点笔记 - 字节记忆 </title>
   </head>
 
   <body>
     <div id="page">
       <header id="masthead"><div class="site-header-inner">
     <h1 class="site-title">
-        <a href="/." class="logo">字节记忆</a>
+        <a href="/." class="logo">字节记忆 
+		<span class="subtitle">代码 & 思绪</span>
+		</a>
     </h1>
 
     <nav id="nav-top">
@@ -115,7 +129,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          ES-5-6-编程笔记
+          ES-5-6-关键点笔记
         
       </h1>
 
@@ -128,7 +142,58 @@
 
     
             <div class="post-content">
-            <p>这两天阅读了<a href="https://www.w3cschool.cn/ecmascript/1myl1q5e.html" target="_blank" rel="noopener">《ECMAScript 6入门》</a>, 对ECMAScript 5/6 的新特性做一个总结。<br><a id="more"></a></p>
+            <p>这两天阅读了几分文档:<a href="https://www.w3cschool.cn/ecmascript/1myl1q5e.html" target="_blank" rel="noopener">《ECMAScript 6入门》</a>,<a href="https://www.jianshu.com/p/dee9f8b14771" target="_blank" rel="noopener">《最详尽的 JS 原型与原型链终极详解》</a>,对ECMAScript 5/6 的特性做一个总结。<br><a id="more"></a></p>
+<h5 id="JS中万物皆是对象"><a href="#JS中万物皆是对象" class="headerlink" title="JS中万物皆是对象"></a>JS中万物皆是对象</h5><p>对象分为 普通对象和函数对象。<br>Object 是函数对象;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(typeof Object); //function</span><br></pre></td></tr></table></figure></p>
+<h5 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function P()&#123;&#125;</span><br><span class="line">var o1 = new P();</span><br><span class="line">console.log(o1.constructor === P); //true</span><br><span class="line">console.log(o1.constructor === P.prototype.constructor); //true</span><br></pre></td></tr></table></figure>
+<p>对象的constructor属性就是构造函数, 对象是构造函数的实例.</p>
+<p>构造函数指向函数本身, 即对象的属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">constructor === P 。</span><br></pre></td></tr></table></figure></p>
+<h4 id="原型对象"><a href="#原型对象" class="headerlink" title="原型对象"></a>原型对象</h4><p>在 JavaScript 中，每当定义一个对象（函数也是对象）时候，对象中都会包含一些预定义的属性。其中每个函数对象都有一个prototype 属性，这个属性指向函数的原型对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function P()&#123;&#125;</span><br><span class="line">console.log(P.prototype.constructor); //function P()&#123;&#125;</span><br><span class="line">P.prototype = &#123;</span><br><span class="line">	name : &apos;miko&apos;,</span><br><span class="line">    age : 18</span><br><span class="line">&#125;</span><br><span class="line">console.log(P.prototype.constructor); //undefined</span><br><span class="line">var o1 = new P();</span><br><span class="line">var o2 = new P();</span><br><span class="line">console.log(o1.name);//miko</span><br><span class="line">console.log(o1.prototype == o2.prototype);//true</span><br></pre></td></tr></table></figure>
+<p>每个 <em>函数对象</em> 都有一个原型对象，即 prototype.</p>
+<p>上面说的构造函数 constructor, 其实是函数对象默认的 prototype的*属性之一, 在函数创建之初, prototype对象默认都会带有constructor属性. 实际上:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">o1.constructor === P.prototype.constructor .</span><br></pre></td></tr></table></figure>
+<p>即对象的构造函数其实指向的是 原型对象的constructor;</p>
+<p>但是注意，prototype是可以被改写的，当prototype被改写以后，默认的属性就会被清理掉了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function P()&#123;this.name = &apos;A&apos;&#125;</span><br><span class="line">console.log(P.prototype.constructor);//ƒ P()&#123;this.name = &apos;A&apos;&#125;</span><br><span class="line">P.prototype = &#123;&#125;; //重写prototype</span><br><span class="line">console.log(P.prototype.constructor); //变化了: ƒ Object() &#123; [native code] &#125;</span><br><span class="line"></span><br><span class="line">原本构造函数是指向P函数本身的, 但是因为原型对象被改成了&#123;&#125;,它的</span><br><span class="line">construnctor属性消失, 再访问时, P.prototype.constructor变成了指向父级的Object对象的constructor.</span><br></pre></td></tr></table></figure>
+<p>因此写程序的时候,尽量不要依赖于constructor等默认prototype上带有的属性, 因为很容易就不小心被覆盖掉了.</p>
+<p><strong> 勘误:</strong><br>在引用的文章《最详尽的 JS 原型与原型链终极详解》中，提到一个结论：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">原型对象（Person.prototype）是 构造函数（Person）的一个实例。</span><br></pre></td></tr></table></figure>
+<p>这个结论应该是错误的，通过如下代码就可证明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function P()&#123;this.name = &apos;A&apos;; &#125;</span><br><span class="line">var o1 = new P();</span><br><span class="line">console.log(o1.name); // A</span><br><span class="line">console.log(P.prototype.name) //undefined</span><br></pre></td></tr></table></figure></p>
+<p>如果prototype是P的实例的话,理应也有name属性,但它没有,因此上面的结论不成立. 另外逻辑上讲，如果 prototype 是其所属函数的实例, 那就没有什么存在的意义了,因为实例随时可以创建, 不需要这样一个多余的属性。</p>
+<h4 id="Function的原型对象"><a href="#Function的原型对象" class="headerlink" title="Function的原型对象"></a>Function的原型对象</h4><p>普通的函数对象的prototype,都是一个普通对象, 但Function.prototype例外, 它是一个函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Function.prototype);//ƒ () &#123; [native code] &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个记住就好 :)</p>
+<h4 id="对象的-proto-属性"><a href="#对象的-proto-属性" class="headerlink" title="对象的 __proto__ 属性"></a>对象的 __proto__ 属性</h4><p>先说结论:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对象的 __proto__ 属性指向的是该对象的构造函数的 prototype.</span><br></pre></td></tr></table></figure></p>
+<p>解释如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function P()&#123;this.name = &apos;A&apos;; &#125;</span><br><span class="line">var o1 = new P();</span><br><span class="line">console.log(o1.constructor.prototype == o1.__proto__);//true</span><br><span class="line"></span><br><span class="line">某个实例对象的__proto__属性，指向的就是它的构造函数的prototype</span><br></pre></td></tr></table></figure></p>
+<p>上面说的是函数对象产生的实例o1，假如是创建的普通对象呢?<br>也是一样的，因为普通的对象的构造函数其实是Object，那么：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;&#125;;</span><br><span class="line">console.log(o.__proto__ == Object.prototype); //true</span><br></pre></td></tr></table></figure></p>
+<p>其实 Object 也是一个函数啦，那么o就是它的一个实例而已。</p>
+<p>可以创建对象的构造器不仅仅有 Object，也可以是 Array，Date，Function等，原理都是一样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var b = new Array();</span><br><span class="line">b.constructor === Array;</span><br><span class="line">b.__proto__ === Array.prototype;</span><br><span class="line"></span><br><span class="line">var c = new Date(); </span><br><span class="line">c.constructor === Date;</span><br><span class="line">c.__proto__ === Date.prototype;</span><br><span class="line"></span><br><span class="line">var d = new Function();</span><br><span class="line">d.constructor === Function;</span><br><span class="line">d.__proto__ === Function.prototype;</span><br></pre></td></tr></table></figure></p>
+<p><strong> __proto__ 是在ES6版本被正式加入标准里的. </strong> </p>
+<h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><p>总结一下前面几个概念之间的关系, 给定函数P和o1,o2两个实例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function P()&#123;&#125;</span><br><span class="line">var o1 = new P();</span><br><span class="line">var o2 = new P();</span><br></pre></td></tr></table></figure></p>
+<p>有如下关系:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">o1.constructor === P.prototype.constructor === o2.constructor</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">o1.__proto__ === o2.__proto__ === P.prototype</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">普通对象 var o = &#123;&#125;;</span><br><span class="line">o.__proto__ === Object.prototype</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">数组对象 var b = new Array();</span><br><span class="line">b.constructor === Array;</span><br><span class="line">b.__proto__ === Array.prototype;</span><br><span class="line">同理还有 Date , Function ...</span><br></pre></td></tr></table></figure>
+<p>那么看如下几个问题，<br>给定:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function Person()&#123;&#125;;</span><br><span class="line">var person1 = new Person();</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p>person1.<strong>proto</strong> 是什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">因为 person1.__proto__ === person1 的构造函数.prototype</span><br><span class="line">因为 person1的构造函数 === Person</span><br><span class="line">所以 person1.__proto__ === Person.prototype</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Person.__proto__ 是什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">因为 Person.__proto__ === Person的构造函数.prototype</span><br><span class="line">因为 Person的构造函数 === Function</span><br><span class="line">所以 Person.__proto__ === Function.prototype</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Person.prototype.__proto__ 是什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype 是一个普通对象，我们无需关注它有哪些属性，只要记住它是一个普通对象。</span><br><span class="line">因为一个普通对象的构造函数 === Object</span><br><span class="line">所以 Person.prototype.__proto__ === Object.prototype</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Object.__proto__ 是什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">因为Object是一个函数, 所以他的构造函数是Function</span><br><span class="line">因此 Object.__proto__ === Function.prototype</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Object.prototype__proto__ 是什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype 对象也有proto属性，但它比较特殊，为 null 。因为 null 处于原型链的顶端，这个只能记住。</span><br><span class="line">Object.prototype.__proto__ === null</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Function的构造函数是谁?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Function.constructor === Function; //true</span><br><span class="line">Function的构造函数是它自己</span><br><span class="line">因此 </span><br><span class="line">Function.__proto__ === Function.prototype</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
             </div>
           
@@ -199,6 +264,8 @@
 
 
     
+  
+
 
 
 
@@ -207,6 +274,8 @@
     <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
   
 
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
   
 
     <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
